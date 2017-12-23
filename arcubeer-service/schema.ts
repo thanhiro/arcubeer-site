@@ -5,8 +5,8 @@ type Beer {
 }
 
 # the schema allows the following query:
-    type Query {
-    beers: [Beers]
+type Query {
+    beers: [Beer]
 }
 
 # this schema allows the following mutation:

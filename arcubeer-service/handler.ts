@@ -1,6 +1,7 @@
 import * as server from "apollo-server-azure-functions";
 import typeDefs from './schema';
 import {makeExecutableSchema} from 'graphql-tools';
+import {graphqlAzureFunctions} from "./azureFunctions";
 
 // example data
 const beers = [
@@ -30,13 +31,14 @@ const schema = makeExecutableSchema({
 });
 
 export const gql = function run(context, request) {
-  if (request.method === "POST") {
-    server.graphqlAzureFunctions({
-      schema
-    })(context, request);
-  } else if (request.method === "GET") {
-    return server.graphiqlAzureFunctions({
-      endpointURL: '/'
-    })(context, request);
-  }
+  const fun = {
+    POST:
+      graphqlAzureFunctions({schema}),
+    GET:
+      server.graphiqlAzureFunctions({
+        endpointURL: '/api/graphql'
+      })
+  }[request.method];
+  return fun ? fun(context, request) :
+    context.done(null, "error");
 };

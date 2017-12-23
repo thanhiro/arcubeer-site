@@ -26,6 +26,7 @@ For details on how to create a service principal and/or acquire your Azure accou
 Once your Azure credentials are set, you can immediately deploy your service via the following command:
 
 ```shell
+yarn bundle
 serverless deploy
 ```
 
