@@ -15,7 +15,7 @@ const typeDefs = `
     last_publication_date: String!
     title: String
     content: String
-    # image: HeroImage
+    image: HeroImage
   }
 
   # the schema allows the following query:
