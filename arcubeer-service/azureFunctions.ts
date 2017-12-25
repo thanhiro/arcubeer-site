@@ -43,15 +43,9 @@ export function graphqlAzureFunctions(
         httpContext.res.raw(gqlResponse);
       })
       .catch(error => {
-        const result = {
-          status: error.statusCode,
-          headers: error.headers,
-          body: error.message,
-        };
-
-        httpContext.res = result;
-
-        httpContext.done(null, result);
+        httpContext.res.status = error.statusCode;
+        httpContext.res.setHeader('Content-Type', 'application/json');
+        httpContext.res.raw(error.message);
       });
   };
 }

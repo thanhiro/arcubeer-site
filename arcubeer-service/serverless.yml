@@ -24,14 +24,9 @@ provider:
 plugins:
   - serverless-azure-functions
 
-# you can add packaging information here
-package:
-  include:
-    - .webpack/**
-
 functions:
   graphql:
-    handler: handler.gql
+    handler: .webpack/handler.gql
     events:
       - http: true
         x-azure-settings:
