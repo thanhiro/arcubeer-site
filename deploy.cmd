@@ -95,6 +95,7 @@ call :SelectNodeVersion
 IF EXIST "%DEPLOYMENT_SOURCE%/arcubeer-ui/package.json" (
   echo "Whatever"
   pushd "%DEPLOYMENT_SOURCE%/arcubeer-ui"
+    call :ExecuteCmd !NPM_CMD! cache verify
   call :ExecuteCmd !NPM_CMD! install
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
