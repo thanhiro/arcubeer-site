@@ -1,2 +1,2 @@
 [config]
-command = arcubeer-ui/deploy.cmd
+command = deploy.cmd
