@@ -1,4 +1,3 @@
-// example data
 import * as Prismic from "prismic-javascript";
 import * as PrismicDOM from 'prismic-dom';
 
@@ -6,10 +5,15 @@ function getApi() {
   return Prismic.api("https://beers.prismic.io/api/v2");
 }
 
+const uptappdBaseUrl = 'https://api.untappd.com/v4//beer/info/';
+const clientID = process.env.UNTAPPD_CLIENT_ID;
+const clientSecret = process.env.UNTAPPD_CLIENT_SECRET;
+
 function mapResultToBeer(o) {
+  console.log(JSON.stringify(o));
   return {
     ...o,
-    image: {url: o.data.main_image.url},
+    ...o.data,
     title: PrismicDOM.RichText.asHtml(o.data.title),
     content: PrismicDOM.RichText.asHtml(o.data.content)
   };
@@ -17,26 +21,22 @@ function mapResultToBeer(o) {
 
 export default {
   Query: {
-    beers: async () => {
+    async beers() {
       const api = await getApi();
       const response = await api.query("", {});
       const resObjs = response.results;
       return resObjs.map(mapResultToBeer);
     },
-    beer: async (obj, args) => {
+    async beer(obj, args) {
       const api = await getApi();
       const doc = await api.getByUID('beer', args.uid);
       return mapResultToBeer(doc);
     }
-  }
-  /*Mutation: {
-    upvotePost: (_, { postId }) => {
-      const post = find(posts, { id: postId });
-      if (!post) {
-        throw new Error(`Couldn't find post with id ${postId}`);
-      }
-      post.votes += 1;
-      return post;
+  },
+  Mutation: {
+    createVote(_, { vote }) {
+      console.log(vote);
+      return vote;
     },
-  },*/
+  }
 };
