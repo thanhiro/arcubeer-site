@@ -47,7 +47,6 @@ export default {
     async basePage() {
       const api = await getApi();
       const doc = await api.getSingle("disclaimer");
-      console.log(doc.data.body);
       return { history: handleSlice(doc.data.body[0]) };
     }
   },
