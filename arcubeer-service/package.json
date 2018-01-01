@@ -34,6 +34,7 @@
     "graphql": "^0.12.3",
     "graphql-tools": "^2.14.1",
     "prismic-dom": "^2.0.6",
-    "prismic-javascript": "^1.5.0-beta.1"
+    "prismic-javascript": "^1.5.0-beta.1",
+    "untappd-js": "^1.0.3"
   }
 }
